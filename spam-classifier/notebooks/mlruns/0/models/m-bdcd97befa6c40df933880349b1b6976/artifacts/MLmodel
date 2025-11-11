@@ -1,0 +1,22 @@
+artifact_path: file:///c:/Users/jubril/Desktop/Projects/ML/Spam%20Classifier/spam-classifier/notebooks/mlruns/0/models/m-bdcd97befa6c40df933880349b1b6976/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.10.0
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.7.2
+mlflow_version: 3.4.0
+model_id: m-bdcd97befa6c40df933880349b1b6976
+model_size_bytes: 61400
+model_uuid: m-bdcd97befa6c40df933880349b1b6976
+prompts: null
+run_id: 8bae818d107c40898efe983d2d4f4e08
+utc_time_created: '2025-09-30 17:36:42.028011'

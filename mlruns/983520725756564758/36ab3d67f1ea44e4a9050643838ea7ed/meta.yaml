@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/jubril/Desktop/Projects/ML/Spam%20Classifier/mlruns/983520725756564758/36ab3d67f1ea44e4a9050643838ea7ed/artifacts
+end_time: 1762890151734
+entry_point_name: ''
+experiment_id: '983520725756564758'
+lifecycle_stage: active
+run_id: 36ab3d67f1ea44e4a9050643838ea7ed
+run_name: omniscient-pig-97
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1762890151038
+status: 4
+tags: []
+user_id: jubril

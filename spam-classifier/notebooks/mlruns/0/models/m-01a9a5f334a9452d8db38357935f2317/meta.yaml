@@ -1,0 +1,10 @@
+artifact_location: file:///c:/Users/jubril/Desktop/Projects/ML/Spam%20Classifier/spam-classifier/notebooks/mlruns/0/models/m-01a9a5f334a9452d8db38357935f2317/artifacts
+creation_timestamp: 1759253816288
+experiment_id: '0'
+last_updated_timestamp: 1759253823483
+model_id: m-01a9a5f334a9452d8db38357935f2317
+model_type: null
+name: pipeline
+source_run_id: 8bae818d107c40898efe983d2d4f4e08
+status: 2
+status_message: null

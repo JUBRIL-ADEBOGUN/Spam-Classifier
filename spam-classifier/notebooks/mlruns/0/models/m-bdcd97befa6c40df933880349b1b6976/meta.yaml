@@ -1,0 +1,10 @@
+artifact_location: file:///c:/Users/jubril/Desktop/Projects/ML/Spam%20Classifier/spam-classifier/notebooks/mlruns/0/models/m-bdcd97befa6c40df933880349b1b6976/artifacts
+creation_timestamp: 1759253801902
+experiment_id: '0'
+last_updated_timestamp: 1759253816224
+model_id: m-bdcd97befa6c40df933880349b1b6976
+model_type: null
+name: model
+source_run_id: 8bae818d107c40898efe983d2d4f4e08
+status: 2
+status_message: null

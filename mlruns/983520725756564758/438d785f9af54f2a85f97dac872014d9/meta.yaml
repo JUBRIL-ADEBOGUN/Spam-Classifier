@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/jubril/Desktop/Projects/ML/Spam%20Classifier/mlruns/983520725756564758/438d785f9af54f2a85f97dac872014d9/artifacts
+end_time: 1762890491073
+entry_point_name: ''
+experiment_id: '983520725756564758'
+lifecycle_stage: active
+run_id: 438d785f9af54f2a85f97dac872014d9
+run_name: bedecked-turtle-957
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1762890490029
+status: 3
+tags: []
+user_id: jubril

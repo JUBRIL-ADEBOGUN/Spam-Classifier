@@ -1,0 +1,14 @@
+artifact_uri: file:///c:/Users/jubril/Desktop/Projects/ML/Spam%20Classifier/spam-classifier/notebooks/mlruns/0/8bae818d107c40898efe983d2d4f4e08/artifacts
+end_time: 1759253823625
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 8bae818d107c40898efe983d2d4f4e08
+run_name: masked-hare-821
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1759253800979
+status: 3
+tags: []
+user_id: jubril
