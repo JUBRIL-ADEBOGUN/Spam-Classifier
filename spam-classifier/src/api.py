@@ -19,8 +19,8 @@ async def lifespan(app: FastAPI):
     global MODEL
 
     # Paths relative to the root of the project (or where Docker copies them)
-    vectorizer_path = os.path.join("spam-classifier/models", "vectorizer.pkl")
-    model_path = os.path.join("spam-classifier/models", "classifier.pkl")
+    vectorizer_path = os.path.join("models", "vectorizer.pkl")
+    model_path = os.path.join("models", "classifier.pkl")
     
     try:
         VECTORIZER = joblib.load(vectorizer_path)
@@ -33,7 +33,10 @@ async def lifespan(app: FastAPI):
     # Yield control to start the application; code after yield runs on shutdown.
     yield
 
-app = FastAPI(title="Spam Classifier API", lifespan=lifespan)
+app = FastAPI(title="Spam Classifier API",
+              version="1.0.0",
+              description="An API that classifies SMS messages as SPAM or HAM using a Logistic Regression model.",
+              lifespan=lifespan)
         # In a production environment, you might stop the application here (raise e)
 
 # --- 3. Prediction Endpoint ---
@@ -63,4 +66,4 @@ def predict(request: PredictionRequest):
 @app.get("/health")
 def health_check():
     """Returns a status check for the load balancer."""
-    return {"status": "ok", "model_ready": MODEL is not None}
+    return {"status": "API running successfully YiPEEEE", "model_ready": MODEL is not None}
