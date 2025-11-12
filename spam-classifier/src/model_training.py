@@ -48,8 +48,8 @@ def train_and_save_model(data_path, max_depth=7):
         joblib.dump(vectorizer, "spam-classifier/models/vectorizer.pkl")
         
         # Log artifacts to MLflow as well
-        mlflow.log_artifact("spam-classifier/models/classifier.pkl", "model_artifact")
-        mlflow.log_artifact("spam-classifier/models/vectorizer.pkl", "model_artifact")
+        # mlflow.log_artifact("spam-classifier/models/classifier.pkl", "model_artifact")
+        # mlflow.log_artifact("spam-classifier/models/vectorizer.pkl", "model_artifact")
 
 if __name__ == "__main__":
     # Example execution with a parameter
