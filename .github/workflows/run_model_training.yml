@@ -29,7 +29,7 @@ jobs:
         python spam-classifier/src/model_training.py
 
     - name: Upload trained model artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: trained-model
         path: spam-classifier/models/
@@ -53,7 +53,7 @@ jobs:
         pip install -r spam-classifier/requirements.txt
 
     - name: Download trained model artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: trained-model
         path: spam-classifier/models/
