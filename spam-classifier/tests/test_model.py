@@ -1,6 +1,9 @@
 import joblib
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import classification_report, confusion_matrix
 
 # Load the test dataset
 def load_test_data():
@@ -12,8 +15,11 @@ def load_test_data():
 
 # Load the trained model and pipeline
 def load_model_pipeline():
-    model_pipeline_path = "final_model_pipeline.pkl"
-    model, pipeline = joblib.load(model_pipeline_path)
+    model_path = "spam-classifier/models/classifier.pkl"
+    vectorizer_path = "spam-classifier/models/vectorizer.pkl"
+    
+    model = joblib.load(model_path)
+    pipeline = joblib.load(vectorizer_path)
     return model, pipeline
 
 # Evaluate the model
@@ -33,6 +39,21 @@ def evaluate_model(model, pipeline, X_test, y_test):
 
     return accuracy, precision, recall, f1
 
+# Visualize model performance
+def visualize_performance(y_test, y_pred):
+    # Generate and display a classification report
+    print("\nClassification Report:\n")
+    print(classification_report(y_test, y_pred))
+
+    # Generate and display a confusion matrix
+    cm = confusion_matrix(y_test, y_pred)
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Ham', 'Spam'], yticklabels=['Ham', 'Spam'])
+    plt.xlabel('Predicted')
+    plt.ylabel('Actual')
+    plt.title('Confusion Matrix')
+    plt.show()
+
 if __name__ == "__main__":
     # Load test data
     df = load_test_data()
@@ -43,4 +64,10 @@ if __name__ == "__main__":
     model, pipeline = load_model_pipeline()
 
     # Evaluate the model
-    evaluate_model(model, pipeline, X_test, y_test)
+    accuracy, precision, recall, f1 = evaluate_model(model, pipeline, X_test, y_test)
+
+    # Visualize performance
+    y_pred = model.predict(pipeline.transform(X_test))
+    visualize_performance(y_test, y_pred)
+    # save the visual metrics to a file
+    plt.savefig("spam-classifier/visuals/confusion_matrix.png")
