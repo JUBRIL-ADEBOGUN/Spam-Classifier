@@ -1,13 +1,13 @@
 import mlflow
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 import joblib
 import os
 from data_pipeline import load_and_clean_data, build_vectorizer
 
-def train_and_save_model(data_path, C_param=1.0):
-    """Loads data, trains a Logistic Regression model, and tracks with MLflow."""
+def train_and_save_model(data_path, max_depth=7):
+    """Loads data, trains a Random Forest model, and tracks with MLflow."""
     
     # --- MLflow Setup ---
     mlflow.set_experiment("Spam_Classifier_Training")
@@ -24,7 +24,7 @@ def train_and_save_model(data_path, C_param=1.0):
         X_test_features = vectorizer.transform(X_test)
 
         # 3. Model Training
-        model = LogisticRegression(C=C_param, solver='liblinear')
+        model = RandomForestClassifier(n_estimators=100, max_depth=7, random_state=42)
         model.fit(X_train_features, y_train)
         y_pred = model.predict(X_test_features)
 
@@ -33,8 +33,9 @@ def train_and_save_model(data_path, C_param=1.0):
         f1 = f1_score(y_test, y_pred)
         
         # Log Hyperparameters
-        mlflow.log_param("model_type", "LogisticRegression")
-        mlflow.log_param("C_parameter", C_param)
+        mlflow.log_param("model_type", "Random Forest")
+        mlflow.log_param("n_estimators", 100)
+        mlflow.log_param("max_depth", 7)
         mlflow.log_param("vectorizer_max_features", vectorizer.max_features)
         
         # Log Metrics (Your successfully implemented code)
@@ -42,15 +43,15 @@ def train_and_save_model(data_path, C_param=1.0):
         mlflow.log_metric("f1_score", f1)
         
         # 5. Save Artifacts (For API Deployment)
-        os.makedirs("spam-classifier/models", exist_ok=True)
+        # os.makedirs("spam-classifier/models", exist_ok=True)
         joblib.dump(model, "spam-classifier/models/classifier.pkl")
         joblib.dump(vectorizer, "spam-classifier/models/vectorizer.pkl")
         
         # Log artifacts to MLflow as well
-        mlflow.log_artifact("spam-classifier/models/classifier.pkl", "model_artifact")
-        mlflow.log_artifact("spam-classifier/models/vectorizer.pkl", "model_artifact")
+        # mlflow.log_artifact("spam-classifier/models/classifier.pkl", "model_artifact")
+        # mlflow.log_artifact("spam-classifier/models/vectorizer.pkl", "model_artifact")
 
 if __name__ == "__main__":
     # Example execution with a parameter
     DATA_FILE = "spam-classifier/data/raw/SMSSpamCollection" 
-    train_and_save_model(DATA_FILE, C_param=0.8)
+    train_and_save_model(DATA_FILE, max_depth=7)
