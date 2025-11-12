@@ -36,6 +36,4 @@ jobs:
       working-directory: spam-classifier
     - name: Test trained model
       run: |
-        python src/test_model.py
-      working-directory: spam-classifier
-        python spam-classifier/src/test_model.py
+        python spam-classifier/tests/test_model.py
