@@ -27,4 +27,4 @@ jobs:
 
     - name: Test trained model
       run: |
-        python spam-classifier/src/test_model.py
+        python spam-classifier/tests/test_model.py
