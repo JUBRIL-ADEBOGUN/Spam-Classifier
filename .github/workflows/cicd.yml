@@ -1,0 +1,85 @@
+name: CI/CD Pipeline for Spam Classifier
+
+on:
+  push:
+    branches:
+      - main # Trigger this pipeline on every push to the main branch
+
+jobs:
+  # --- JOB 1: Train the Model ---
+  train:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run model training script
+        run: python src/model_training.py # Assumes this script saves artifacts to models/
+
+      - name: Upload model artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: model-artifacts
+          path: models/
+
+  # --- JOB 2: Test the Model (The Gatekeeper) ---
+  test:
+    needs: [train] # This job will only run if the 'train' job succeeds
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Download model artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: model-artifacts
+          path: models/
+
+      - name: Run model tests with pytest
+        run: pytest tests/run_test_model.py
+
+  # --- JOB 3: Deploy to Docker Hub (The Final Step) ---
+  deploy:
+    needs: [test] # This job will only run if the 'test' job succeeds
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download model artifacts for Docker build
+        uses: actions/download-artifact@v4
+        with:
+          name: model-artifacts
+          path: models/
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/spam-classifier:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/spam-classifier:${{ github.run_number }}
