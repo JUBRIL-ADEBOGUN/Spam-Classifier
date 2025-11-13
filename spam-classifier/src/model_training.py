@@ -110,8 +110,14 @@ def train_and_save_model(data_path, max_depth=7):
         X_train_features = vectorizer.transform(X_train)
         X_test_features = vectorizer.transform(X_test)
 
+        # calculate class weights
+        class_weights = {0: (1 / sum(y_train == 0)) * (len(y_train)) / 2.0,
+                         1: (1 / sum(y_train == 1)) * (len(y_train)) / 2.0}
+        
         # 3. Model Training
-        model = RandomForestClassifier(n_estimators=100, max_depth=7, random_state=42)
+        model = RandomForestClassifier(n_estimators=100, max_depth=None, random_state=42,
+                                       class_weight=class_weights
+                                       )
         model.fit(X_train_features, y_train)
         y_pred = model.predict(X_test_features)
 

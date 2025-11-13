@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/jubril/Desktop/Projects/ML/Spam%20Classifier/mlruns/983520725756564758/27d440277a58447da4d18334bc1fa553/artifacts
+end_time: 1763050005656
+entry_point_name: ''
+experiment_id: '983520725756564758'
+lifecycle_stage: active
+run_id: 27d440277a58447da4d18334bc1fa553
+run_name: learned-stoat-529
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763050000962
+status: 3
+tags: []
+user_id: jubril

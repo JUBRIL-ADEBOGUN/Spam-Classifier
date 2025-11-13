@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/jubril/Desktop/Projects/ML/Spam%20Classifier/mlruns/983520725756564758/6a287bdcaa2941129456d45a088996ae/artifacts
+end_time: 1763050414162
+entry_point_name: ''
+experiment_id: '983520725756564758'
+lifecycle_stage: active
+run_id: 6a287bdcaa2941129456d45a088996ae
+run_name: nosy-sponge-145
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763050409179
+status: 3
+tags: []
+user_id: jubril
