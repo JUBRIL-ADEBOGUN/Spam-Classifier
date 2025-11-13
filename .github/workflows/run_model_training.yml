@@ -8,24 +8,40 @@ on:
 jobs:
   train-model:
     runs-on: ubuntu-latest
+    container: docker://ghcr.io/iterative/cml:0-dvc2-base1
+
+    permissions:
+      contents: write # Needed for commenting on commits (on: push)
+      pull-requests: write # Needed for commenting on PRs (on: pull_request)
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
+    # - uses: iterative/setup-cml@v1
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
+    # - name: Set up Python
+    #   uses: actions/setup-python@v5
+    #   with:
+    #     python-version: '3.10'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r spam-classifier/requirements.txt
+        sudo apt-get install -y libfreetype6-dev libpng-dev
 
     - name: Run model training
+      env:
+        REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         python spam-classifier/src/model_training.py
+  
+        # Create CML report
+        # echo 'ModelTraining Performance report' > report.md
+        cat spam-classifier/src/report/training_report.md >> report.md
+        # echo '![](./confusion_matrix.png "Confusion Matrix")' >> report.md
+        # cml comment create --publish report.md
+        cml comment create report.md
 
     - name: Upload trained model artifact
       uses: actions/upload-artifact@v4

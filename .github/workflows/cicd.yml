@@ -9,6 +9,11 @@ jobs:
   # --- JOB 1: Train the Model ---
   train:
     runs-on: ubuntu-latest
+    container: docker://ghcr.io/iterative/cml:0-dvc2-base1
+
+    permissions:
+      contents: write # Needed for commenting on commits (on: push)
+      pull-requests: write # Needed for commenting on PRs (on: pull_request)
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -16,19 +21,26 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.9'
+          python-version: '3.10'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: | 
+            pip install -r spam-classifier/requirements.txt
+            # Install system-level font libraries for matplotlib on headless ubuntu
+            sudo apt-get install -y libfreetype6-dev libpng-dev
 
       - name: Run model training script
-        run: python src/model_training.py # Assumes this script saves artifacts to models/
-
+        run: |
+          python spam-classifier/src/model_training.py # Assumes this script saves artifacts to models
+          cat spam-classifier/src/report/training_report.md >> report.md
+          cml comment create report.md
+          
       - name: Upload model artifacts
         uses: actions/upload-artifact@v4
         with:
           name: model-artifacts
-          path: models/
+          path: spam-classifier/models/
+
 
   # --- JOB 2: Test the Model (The Gatekeeper) ---
   test:
@@ -44,16 +56,16 @@ jobs:
           python-version: '3.9'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r spam-classifier/requirements.txt
 
       - name: Download model artifacts
         uses: actions/download-artifact@v4
         with:
           name: model-artifacts
-          path: models/
+          path: spam-classifier/models/
 
       - name: Run model tests with pytest
-        run: pytest tests/run_test_model.py
+        run: pytest spam-classifier/tests/run_test_model.py
 
   # --- JOB 3: Deploy to Docker Hub (The Final Step) ---
   deploy:
@@ -67,7 +79,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: model-artifacts
-          path: models/
+          path: spam-classifier/models/
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3

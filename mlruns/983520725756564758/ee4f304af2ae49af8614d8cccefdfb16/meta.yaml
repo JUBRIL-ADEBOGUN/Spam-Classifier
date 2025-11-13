@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/jubril/Desktop/Projects/ML/Spam%20Classifier/mlruns/983520725756564758/ee4f304af2ae49af8614d8cccefdfb16/artifacts
+end_time: 1763050320695
+entry_point_name: ''
+experiment_id: '983520725756564758'
+lifecycle_stage: active
+run_id: ee4f304af2ae49af8614d8cccefdfb16
+run_name: fun-hare-980
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763050318439
+status: 3
+tags: []
+user_id: jubril
