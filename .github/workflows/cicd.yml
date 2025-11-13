@@ -68,7 +68,7 @@ jobs:
           path: spam-classifier/models/
 
       - name: Run model tests with pytest
-        run: pytest spam-classifier/tests/run_test_model.py
+        run: spam-classifier/tests/run_test_model.py
 
   # --- JOB 3: Deploy to Docker Hub (The Final Step) ---
   deploy:
