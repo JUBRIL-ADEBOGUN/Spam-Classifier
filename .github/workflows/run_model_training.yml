@@ -21,37 +21,37 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r spam-classifier/requirements.txt
+        pip install -r requirements.txt
         sudo apt-get install -y libfreetype6-dev libpng-dev
 
     - name: Run model training
       run: |
-        python spam-classifier/src/model_training.py
+        python model_training.py
 
     - name: Upload trained model artifact
       uses: actions/upload-artifact@v4
       with:
         name: trained-model
-        path: spam-classifier/models/
+        path: models/
         # --- NEW: Upload the entire report directory as an artifact ---
     - name: Upload training report artifact
       uses: actions/upload-artifact@v4
       with:
         name: training-report
-        path: spam-classifier/src/report/
+        path: src/report/
 
       # --- NEW: Post the report as a comment on the commit ---
     - name: Read report content
       id: read_report
       uses: juliangruber/read-file-action@v1
       with:
-        path: ./report/training_report.md
+        path: ./src/report/training_report.md
 
     - name: Post report to commit
       uses: peter-evans/commit-comment@v3
       with:
         body: ${{ steps.read_report.outputs.content }}
-        
+
   test-model:
     needs: train-model
     runs-on: ubuntu-latest
@@ -68,14 +68,14 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r spam-classifier/requirements.txt
+        pip install -r requirements.txt
 
     - name: Download trained model artifact
       uses: actions/download-artifact@v4
       with:
         name: trained-model
-        path: spam-classifier/models/
+        path: models/
 
     - name: Run model testing
       run: |
-        python spam-classifier/tests/test_model.py
+        python tests/test_model.py
