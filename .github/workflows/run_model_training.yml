@@ -12,10 +12,10 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+    - uses: iterative/setup-cml@v1
 
     - name: Set up Python
       uses: actions/setup-python@v5
-    - uses: iterative/setup-cml@v1
       with:
         python-version: '3.10'
 
@@ -32,9 +32,10 @@ jobs:
         python spam-classifier/src/model_training.py
   
         # Create CML report
+        echo 'My first CML report' > report.md
         cat spam-classifier/src/report/metrics.txt >> report.md
         echo '![](spam-classifier/src/report/confusion_matrix.png "Confusion Matrix")' >> report.md
-        cml comment create report.md
+        cml comment create --publish report.md
 
     - name: Upload trained model artifact
       uses: actions/upload-artifact@v4
