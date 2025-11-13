@@ -19,7 +19,7 @@ def generate_training_report(model, vectorizer, X_test_features, y_test, y_pred)
     
     # Ensure the directory for saving reports exists
     report_dir = "spam-classifier/src/report/"
-    os.makedirs(report_dir, exist_ok=True)  # Create the directory if it does not exist
+    # os.makedirs(report_dir, exist_ok=True)  # Create the directory if it does not exist
     
     # --- 2. Generate Confusion Matrix Plot ---
     cm = confusion_matrix(y_test, y_pred)
@@ -29,8 +29,8 @@ def generate_training_report(model, vectorizer, X_test_features, y_test, y_pred)
     plt.xlabel('Predicted')
     plt.ylabel('Actual')
     plt.title('Confusion Matrix')
-    confusion_matrix_path = os.path.join(report_dir, "confusion_matrix.png")
-    plt.savefig(confusion_matrix_path)  # Save the plot
+    # confusion_matrix_path = os.path.join(report_dir, "confusion_matrix.png")
+    # plt.savefig(confusion_matrix_path)  # Save the plot
     plt.savefig("confusion_matrix.png")
     plt.close()  # Close the plot to free up memory
 
@@ -58,8 +58,8 @@ def generate_training_report(model, vectorizer, X_test_features, y_test, y_pred)
     plt.title('Top 15 Words Influencing Prediction')
     plt.legend()
     plt.tight_layout()
-    feature_importance_path = os.path.join(report_dir, "feature_importance.png")
-    plt.savefig(feature_importance_path)
+    # feature_importance_path = os.path.join(report_dir, "feature_importance.png")
+    # plt.savefig(feature_importance_path)
     plt.savefig("feature_importance.png")
     plt.close()
 
@@ -91,7 +91,7 @@ def generate_training_report(model, vectorizer, X_test_features, y_test, y_pred)
 
 
         
-    print(f"INFO: Report saved to {report_path}")
+    print(f"INFO: Report saved Successfully")
 
 def train_and_save_model(data_path, max_depth=7):
     """Loads data, trains a Random Forest model, and tracks with MLflow."""
