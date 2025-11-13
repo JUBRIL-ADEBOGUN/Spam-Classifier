@@ -25,7 +25,7 @@ def generate_training_report(model, vectorizer, X_test_features, y_test, y_pred)
     plt.xlabel('Predicted')
     plt.ylabel('Actual')
     plt.title('Confusion Matrix')
-    confusion_matrix_path = "report/confusion_matrix.png"
+    confusion_matrix_path = "spam-classifier/src/report/confusion_matrix.png"
     plt.savefig(confusion_matrix_path)
     plt.close() # Close the plot to free up memory
 
@@ -56,12 +56,12 @@ def generate_training_report(model, vectorizer, X_test_features, y_test, y_pred)
     plt.title('Top 15 Words Influencing Prediction')
     plt.legend()
     plt.tight_layout()
-    feature_importance_path = "report/feature_importance.png"
+    feature_importance_path = "spam-classifier/src/report/feature_importance.png"
     plt.savefig(feature_importance_path)
     plt.close()
 
     # --- 4. Generate and Save the Markdown Report ---
-    report_path = "report/training_report.md"
+    report_path = "spam-classifier/src/report/training_report.md"
     
     # Get detailed classification report as text
     class_report = classification_report(y_test, y_pred, target_names=['HAM', 'SPAM'])
