@@ -31,6 +31,8 @@ jobs:
             sudo apt-get install -y libfreetype6-dev libpng-dev
 
       - name: Run model training script
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python spam-classifier/src/model_training.py # Assumes this script saves artifacts to models
           cat spam-classifier/src/report/training_report.md >> report.md
