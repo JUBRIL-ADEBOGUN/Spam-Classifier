@@ -38,8 +38,8 @@ jobs:
   
         # Create CML report
         echo 'ModelTraining Performance report' > report.md
-        cat metrics.txt >> report.md
-        echo '![](./confusion_matrix.png "Confusion Matrix")' >> report.md
+        cat spam-classifier/src/report/training_report.md >> report.md
+        # echo '![](./confusion_matrix.png "Confusion Matrix")' >> report.md
         # cml comment create --publish report.md
         cml comment create report.md
 
