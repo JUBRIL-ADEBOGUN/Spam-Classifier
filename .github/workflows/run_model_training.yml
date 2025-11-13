@@ -31,11 +31,11 @@ jobs:
       run: |
         python spam-classifier/src/model_training.py
 
-    # - name: Upload trained model artifact
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: trained-model
-    #     path: spam-classifier/models/
+    - name: Upload trained model artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: trained-model
+        path: spam-classifier/models/
     #     # --- NEW: Upload the entire report directory as an artifact ---
     # - name: Upload training report artifact
     #   uses: actions/upload-artifact@v4
