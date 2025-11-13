@@ -77,6 +77,17 @@ def generate_training_report(model, vectorizer, X_test_features, y_test, y_pred)
         f.write("## 3. Feature Importance\n\n")
         f.write("This plot shows the top words that push the prediction towards SPAM (red) or HAM (green).\n\n")
         f.write("![Feature Importance](feature_importance.png)\n")
+    
+    # write metrics (accuracy, precision recall, f1score) into a .txt file
+    merics_path = os.path.join(report_dir, "metrics.txt")
+    with open(merics_path, "w") as f:
+        f.write("Model Performance Metrics:\n")
+        f.write('Accuracy: {:.4f}\n'.format(accuracy_score(y_test, y_pred)))
+        f.write('Precision: {:.4f}\n'.format(precision_score(y_test, y_pred)))
+        f.write('Recall: {:.4f}\n'.format(recall_score(y_test, y_pred)))
+        f.write('F1 Score: {:.4f}\n'.format(f1_score(y_test, y_pred)))
+
+
         
     print(f"INFO: Report saved to {report_path}")
 

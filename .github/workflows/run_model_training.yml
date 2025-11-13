@@ -30,30 +30,17 @@ jobs:
         REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         python spam-classifier/src/model_training.py
+  
+        # Create CML report
+        cat spam-classifier/src/report/metrics.txt >> report.md
+        echo '![](spam-classifier/src/report/confusion_matrix.png "Confusion Matrix")' >> report.md
+        cml comment create report.md
 
     - name: Upload trained model artifact
       uses: actions/upload-artifact@v4
       with:
         name: trained-model
         path: spam-classifier/models/
-    #     # --- NEW: Upload the entire report directory as an artifact ---
-    # - name: Upload training report artifact
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: training-report
-    #     path: spam-classifier/src/report/
-
-    #   # --- NEW: Post the report as a comment on the commit ---
-    # - name: Read report content
-    #   id: read_report
-    #   uses: juliangruber/read-file-action@v1
-    #   with:
-    #     path: spam-classifier/src/report/training_report.md
-
-    # - name: Post report to commit
-    #   uses: peter-evans/commit-comment@v3
-    #   with:
-    #     body: ${{ steps.read_report.outputs.content }}
 
   test-model:
     needs: train-model
