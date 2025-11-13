@@ -26,26 +26,26 @@ jobs:
 
     - name: Run model training
       run: |
-        python src/model_training.py
+        python spam-classifier/src/model_training.py
 
     - name: Upload trained model artifact
       uses: actions/upload-artifact@v4
       with:
         name: trained-model
-        path: models/
+        path: spam-classifier/models/
         # --- NEW: Upload the entire report directory as an artifact ---
     - name: Upload training report artifact
       uses: actions/upload-artifact@v4
       with:
         name: training-report
-        path: src/report/
+        path: spam-classifier/src/report/
 
       # --- NEW: Post the report as a comment on the commit ---
     - name: Read report content
       id: read_report
       uses: juliangruber/read-file-action@v1
       with:
-        path: ./src/report/training_report.md
+        path: spam-classifier/src/report/training_report.md
 
     - name: Post report to commit
       uses: peter-evans/commit-comment@v3
@@ -68,14 +68,14 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install -r spam-classifier/requirements.txt
 
     - name: Download trained model artifact
       uses: actions/download-artifact@v4
       with:
         name: trained-model
-        path: models/
+        path: spam-classifier/models/
 
     - name: Run model testing
       run: |
-        python tests/test_model.py
+        python spam-classifier/tests/test_model.py
