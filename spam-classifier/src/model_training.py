@@ -31,6 +31,7 @@ def generate_training_report(model, vectorizer, X_test_features, y_test, y_pred)
     plt.title('Confusion Matrix')
     confusion_matrix_path = os.path.join(report_dir, "confusion_matrix.png")
     plt.savefig(confusion_matrix_path)  # Save the plot
+    plt.savefig("confusion_matrix.png")
     plt.close()  # Close the plot to free up memory
 
     # --- 3. Generate Feature Importance Plot ---
@@ -59,33 +60,34 @@ def generate_training_report(model, vectorizer, X_test_features, y_test, y_pred)
     plt.tight_layout()
     feature_importance_path = os.path.join(report_dir, "feature_importance.png")
     plt.savefig(feature_importance_path)
+    plt.savefig("feature_importance.png")
     plt.close()
 
     # --- 4. Generate and Save the Markdown Report ---
-    report_path = os.path.join(report_dir, "training_report.md")
+    # report_path = os.path.join(report_dir, "training_report.md")
     
-    class_report = classification_report(y_test, y_pred, target_names=['HAM', 'SPAM'])
-    with open(report_path, "w") as f:
-        f.write("# Model Training Report\n\n")
-        f.write(f"**Timestamp:** `{pd.Timestamp.now()}`\n\n")
-        f.write("## 1. Performance Metrics\n\n")
-        f.write("```\n")
-        f.write(class_report)
-        f.write("\n```\n\n")
-        f.write("## 2. Confusion Matrix\n\n")
-        f.write("![Confusion Matrix](spam-classifier/src/report/confusion_matrix.png)\n\n")
-        f.write("## 3. Feature Importance\n\n")
-        f.write("This plot shows the top words that push the prediction towards SPAM (red) or HAM (green).\n\n")
-        f.write("![Feature Importance](spam-classifier/src/report/feature_importance.png)\n")
+    # class_report = classification_report(y_test, y_pred, target_names=['HAM', 'SPAM'])
+    # with open(report_path, "w") as f:
+    #     f.write("# Model Training Report\n\n")
+    #     f.write(f"**Timestamp:** `{pd.Timestamp.now()}`\n\n")
+    #     f.write("## 1. Performance Metrics\n\n")
+    #     f.write("```\n")
+    #     f.write(class_report)
+    #     f.write("\n```\n\n")
+    #     f.write("## 2. Confusion Matrix\n\n")
+    #     f.write("![Confusion Matrix](spam-classifier/src/report/confusion_matrix.png)\n\n")
+    #     f.write("## 3. Feature Importance\n\n")
+    #     f.write("This plot shows the top words that push the prediction towards SPAM (red) or HAM (green).\n\n")
+    #     f.write("![Feature Importance](spam-classifier/src/report/feature_importance.png)\n")
     
-    # # write metrics (accuracy, precision recall, f1score) into a .txt file
+    # write metrics (accuracy, precision recall, f1score) into a .txt file
     # metrics_path = os.path.join(report_dir, "metrics.txt")
-    # with open(metrics_path, "w") as f:
-    #     f.write("Model Performance Metrics:\n")
-    #     f.write('Accuracy: {:.4f}\n'.format(accuracy_score(y_test, y_pred)))
-    #     f.write('Precision: {:.4f}\n'.format(precision_score(y_test, y_pred)))
-    #     f.write('Recall: {:.4f}\n'.format(recall_score(y_test, y_pred)))
-    #     f.write('F1 Score: {:.4f}\n'.format(f1_score(y_test, y_pred)))
+    with open('metrics.txt', "w") as f:
+        f.write("Model Performance Metrics:\n")
+        f.write('Accuracy: {:.4f}\n'.format(accuracy_score(y_test, y_pred)))
+        f.write('Precision: {:.4f}\n'.format(precision_score(y_test, y_pred)))
+        f.write('Recall: {:.4f}\n'.format(recall_score(y_test, y_pred)))
+        f.write('F1 Score: {:.4f}\n'.format(f1_score(y_test, y_pred)))
 
 
         
