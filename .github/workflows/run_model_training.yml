@@ -33,11 +33,11 @@ jobs:
         python spam-classifier/src/model_training.py
   
         # Create CML report
-        # echo 'My first CML report' > report.md
-        # cat spam-classifier/src/report/metrics.txt >> report.md
+        echo 'My first CML report' > report.md
+        cat spam-classifier/src/report/training_report.md >> report.md
         # echo '![](spam-classifier/src/report/confusion_matrix.png "Confusion Matrix")' >> report.md
         # cml comment create --publish report.md
-        cml comment create spam-classifier/src/report/training_report.md
+        cml comment create report.md
 
     - name: Upload trained model artifact
       uses: actions/upload-artifact@v4
