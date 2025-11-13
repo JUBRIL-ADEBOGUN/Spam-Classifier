@@ -10,12 +10,16 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import confusion_matrix, classification_report
 from data_pipeline import load_and_clean_data, build_vectorizer
+import os  # Import for directory creation
 
 def generate_training_report(model, vectorizer, X_test_features, y_test, y_pred):
     """Generates a visual and textual report of the model's performance."""
     
     print("INFO: Generating training report...")
     
+    # Ensure the directory for saving reports exists
+    report_dir = "spam-classifier/src/report/"
+    os.makedirs(report_dir, exist_ok=True)  # Create the directory if it does not exist
     
     # --- 2. Generate Confusion Matrix Plot ---
     cm = confusion_matrix(y_test, y_pred)
@@ -25,21 +29,18 @@ def generate_training_report(model, vectorizer, X_test_features, y_test, y_pred)
     plt.xlabel('Predicted')
     plt.ylabel('Actual')
     plt.title('Confusion Matrix')
-    confusion_matrix_path = "spam-classifier/src/report/confusion_matrix.png"
-    plt.savefig(confusion_matrix_path)
-    plt.close() # Close the plot to free up memory
+    confusion_matrix_path = os.path.join(report_dir, "confusion_matrix.png")
+    plt.savefig(confusion_matrix_path)  # Save the plot
+    plt.close()  # Close the plot to free up memory
 
     # --- 3. Generate Feature Importance Plot ---
-    # For Logistic Regression, coefficients are the "feature importances"
     feature_names = vectorizer.get_feature_names_out()
 
-    # try to get coefficients, if model has no coef_ attribute, use feature_importances_
     try:
         coefficients = model.coef_[0]
     except AttributeError:
         coefficients = model.feature_importances_
     
-    # Get top 15 SPAM (positive) and HAM (negative) features
     top_spam_indices = coefficients.argsort()[-15:]
     top_ham_indices = coefficients.argsort()[:15]
     
@@ -56,16 +57,14 @@ def generate_training_report(model, vectorizer, X_test_features, y_test, y_pred)
     plt.title('Top 15 Words Influencing Prediction')
     plt.legend()
     plt.tight_layout()
-    feature_importance_path = "spam-classifier/src/report/feature_importance.png"
+    feature_importance_path = os.path.join(report_dir, "feature_importance.png")
     plt.savefig(feature_importance_path)
     plt.close()
 
     # --- 4. Generate and Save the Markdown Report ---
-    report_path = "spam-classifier/src/report/training_report.md"
+    report_path = os.path.join(report_dir, "training_report.md")
     
-    # Get detailed classification report as text
     class_report = classification_report(y_test, y_pred, target_names=['HAM', 'SPAM'])
-    
     with open(report_path, "w") as f:
         f.write("# Model Training Report\n\n")
         f.write(f"**Timestamp:** `{pd.Timestamp.now()}`\n\n")
