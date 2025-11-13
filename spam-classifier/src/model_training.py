@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import confusion_matrix, classification_report
 from data_pipeline import load_and_clean_data, build_vectorizer
-import os  # Import for directory creation
+import pandas as pd
 
 def generate_training_report(model, vectorizer, X_test_features, y_test, y_pred):
     """Generates a visual and textual report of the model's performance."""
