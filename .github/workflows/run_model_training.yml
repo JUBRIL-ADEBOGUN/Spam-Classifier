@@ -8,11 +8,12 @@ on:
 jobs:
   train-model:
     runs-on: ubuntu-latest
+    container: docker://ghcr.io/iterative/cml:0-dvc2-base1
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - uses: iterative/setup-cml@v1
+    # - uses: iterative/setup-cml@v1
 
     - name: Set up Python
       uses: actions/setup-python@v5
