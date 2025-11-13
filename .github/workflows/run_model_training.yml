@@ -15,6 +15,7 @@ jobs:
 
     - name: Set up Python
       uses: actions/setup-python@v5
+    - uses: iterative/setup-cml@v1
       with:
         python-version: '3.10'
 
@@ -25,32 +26,34 @@ jobs:
         sudo apt-get install -y libfreetype6-dev libpng-dev
 
     - name: Run model training
+      env:
+        REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         python spam-classifier/src/model_training.py
 
-    - name: Upload trained model artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: trained-model
-        path: spam-classifier/models/
-        # --- NEW: Upload the entire report directory as an artifact ---
-    - name: Upload training report artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: training-report
-        path: spam-classifier/src/report/
+    # - name: Upload trained model artifact
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: trained-model
+    #     path: spam-classifier/models/
+    #     # --- NEW: Upload the entire report directory as an artifact ---
+    # - name: Upload training report artifact
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: training-report
+    #     path: spam-classifier/src/report/
 
-      # --- NEW: Post the report as a comment on the commit ---
-    - name: Read report content
-      id: read_report
-      uses: juliangruber/read-file-action@v1
-      with:
-        path: spam-classifier/src/report/training_report.md
+    #   # --- NEW: Post the report as a comment on the commit ---
+    # - name: Read report content
+    #   id: read_report
+    #   uses: juliangruber/read-file-action@v1
+    #   with:
+    #     path: spam-classifier/src/report/training_report.md
 
-    - name: Post report to commit
-      uses: peter-evans/commit-comment@v3
-      with:
-        body: ${{ steps.read_report.outputs.content }}
+    # - name: Post report to commit
+    #   uses: peter-evans/commit-comment@v3
+    #   with:
+    #     body: ${{ steps.read_report.outputs.content }}
 
   test-model:
     needs: train-model
