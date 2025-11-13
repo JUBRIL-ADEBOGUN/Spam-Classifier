@@ -36,7 +36,7 @@ jobs:
         # cat spam-classifier/src/report/metrics.txt >> report.md
         # echo '![](spam-classifier/src/report/confusion_matrix.png "Confusion Matrix")' >> report.md
         # cml comment create --publish report.md
-        cml comment create --publish spam-classifier/src/report/training_report.md
+        cml send-comment spam-classifier/src/report/training_report.md
 
     - name: Upload trained model artifact
       uses: actions/upload-artifact@v4
