@@ -53,17 +53,20 @@ def predict(request: PredictionRequest):
     features = VECTORIZER.transform(message_text)
     
     # 2. Prediction
-    prediction = MODEL.predict(features)[0]
-    probability = MODEL.predict_proba(features)
+    prediction_raw = MODEL.predict(features)[0]
+    probability_raw = MODEL.predict_proba(features)[0]
+
+    prediction = int(prediction_raw)
+    confidence = float(probability_raw.max())
 
     return {
         "message_in": message_text[0],
         "prediction_label": "SPAM" if prediction == 1 else "HAM",
-        "confidence": probability.max()
+        "confidence": confidence
     }
 
 # --- 4. Health Check (Crucial for Orchestration systems like Kubernetes) ---
 @app.get("/health")
 def health_check():
     """Returns a status check for the load balancer."""
-    return {"status": "API running successfully YiPEEEE", "model_ready": MODEL is not None}
+    return {"status": "ok", "model_ready": MODEL is not None}
