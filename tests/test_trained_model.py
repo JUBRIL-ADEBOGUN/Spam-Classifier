@@ -12,8 +12,8 @@ def loaded_artifacts():
     This is efficient as we don't reload for every single test.
     """
     try:
-        model = joblib.load("spam-classifier/models/classifier.pkl")
-        vectorizer = joblib.load("spam-classifier/models/vectorizer.pkl")
+        model = joblib.load("models/classifier.pkl")
+        vectorizer = joblib.load("models/vectorizer.pkl")
         return {"model": model, "vectorizer": vectorizer}
     except FileNotFoundError:
         # Fail the test session if artifacts aren't found
