@@ -141,8 +141,8 @@ def train_and_save_model(data_path, max_depth=7):
         joblib.dump(vectorizer, "models/vectorizer.pkl")
         
         # Log artifacts to MLflow as well
-        mlflow.log_artifact("models/classifier.pkl", "model_artifact")
-        mlflow.log_artifact("models/vectorizer.pkl", "model_artifact")
+        # mlflow.log_artifact("models/classifier.pkl", "model_artifact")
+        # mlflow.log_artifact("models/vectorizer.pkl", "model_artifact")
         
         # --- NEW: Call the report generation function ---
         generate_training_report(model, vectorizer, X_test_features, y_test, y_pred)
