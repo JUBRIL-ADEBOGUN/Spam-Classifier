@@ -59,7 +59,7 @@ def predict(request: PredictionRequest):
     return {
         "message_in": message_text[0],
         "prediction_label": "SPAM" if prediction == 1 else "HAM",
-        "confidence": probability[1] if prediction == 1 else probability[0]
+        "confidence": str(float(probability.max()))
     }
 
 # --- 4. Health Check (Crucial for Orchestration systems like Kubernetes) ---
