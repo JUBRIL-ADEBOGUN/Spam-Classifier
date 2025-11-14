@@ -53,7 +53,9 @@ jobs:
           path: models/ # SIMPLIFIED: Path from the root
 
       - name: Run model tests with pytest
-        run: pytest tests/test_model.py # SIMPLIFIED: No sub-folder prefix
+        run: |
+          python tests/test_model.py # SIMPLIFIED: No sub-folder prefix
+          python tests/test_trained_model.py
 
   # --- JOB 3: Deploy to Docker Hub (The Final Step) ---
   deploy:
