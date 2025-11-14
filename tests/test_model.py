@@ -8,15 +8,15 @@ from sklearn.metrics import classification_report, confusion_matrix
 # Load the test dataset
 def load_test_data():
     # Replace with the actual path to your test dataset
-    test_data_path = "spam-classifier/data/raw/SMSSpamCollection"
+    test_data_path = "data/raw/SMSSpamCollection"
     df = pd.read_csv(test_data_path, sep='\t', names=['target', 'message'])
     df['target'] = df['target'].map({'ham': 0, 'spam': 1})
     return df
 
 # Load the trained model and pipeline
 def load_model_pipeline():
-    model_path = "spam-classifier/models/classifier.pkl"
-    vectorizer_path = "spam-classifier/models/vectorizer.pkl"
+    model_path = "models/classifier.pkl"
+    vectorizer_path = "models/vectorizer.pkl"
     
     model = joblib.load(model_path)
     pipeline = joblib.load(vectorizer_path)
@@ -70,4 +70,4 @@ if __name__ == "__main__":
     y_pred = model.predict(pipeline.transform(X_test))
     visualize_performance(y_test, y_pred)
     # save the visual metrics to a file
-    plt.savefig("spam-classifier/visuals/confusion_matrix.png")
+    plt.savefig("visuals/confusion_matrix.png")
