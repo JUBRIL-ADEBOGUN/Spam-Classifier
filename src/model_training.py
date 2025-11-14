@@ -115,7 +115,7 @@ def train_and_save_model(data_path, max_depth=7):
                          1: (1 / sum(y_train == 1)) * (len(y_train)) / 2.0}
         
         # 3. Model Training
-        model = RandomForestClassifier(n_estimators=100, max_depth=None, random_state=42,
+        model = RandomForestClassifier(n_estimators=100, max_depth=max_depth, random_state=42,
                                        class_weight=class_weights
                                        )
         model.fit(X_train_features, y_train)
@@ -136,7 +136,7 @@ def train_and_save_model(data_path, max_depth=7):
         mlflow.log_metric("f1_score", f1)
         
         # 5. Save Artifacts (For API Deployment)
-        # os.makedirs("spam-classifier/models", exist_ok=True)
+        os.makedirs("models", exist_ok=True)
         joblib.dump(model, "models/classifier.pkl")
         joblib.dump(vectorizer, "models/vectorizer.pkl")
         
@@ -150,4 +150,4 @@ def train_and_save_model(data_path, max_depth=7):
 if __name__ == "__main__":
     # Example execution with a parameter
     DATA_FILE = "data/raw/SMSSpamCollection" 
-    train_and_save_model(DATA_FILE, max_depth=7)
+    train_and_save_model(DATA_FILE, max_depth=None)
