@@ -54,12 +54,12 @@ def predict(request: PredictionRequest):
     
     # 2. Prediction
     prediction = MODEL.predict(features)[0]
-    probability = MODEL.predict_proba(features)[0].max()
+    probability = MODEL.predict_proba(features)
 
     return {
         "message_in": message_text[0],
         "prediction_label": "SPAM" if prediction == 1 else "HAM",
-        "confidence": round(float(probability), 4)
+        "confidence": probability[1] if prediction == 1 else probability[0]
     }
 
 # --- 4. Health Check (Crucial for Orchestration systems like Kubernetes) ---
