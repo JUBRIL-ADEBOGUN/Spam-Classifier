@@ -14,7 +14,9 @@ def loaded_artifacts():
     try:
         model = joblib.load("models/classifier.pkl")
         vectorizer = joblib.load("models/vectorizer.pkl")
+        print("Artifacts loaded successfully.")
         return {"model": model, "vectorizer": vectorizer}
+
     except FileNotFoundError:
         # Fail the test session if artifacts aren't found
         pytest.fail("Model or vectorizer artifacts not found in 'models/' directory.")
@@ -63,6 +65,7 @@ def test_model_performance(loaded_artifacts):
     # Transform and predict
     features = vectorizer.transform(df['message'])
     predictions = model.predict(features)
+    print("Predictions: ", predictions)
     
     # Calculate accuracy on this known set
     accuracy = accuracy_score(df['target'], predictions)

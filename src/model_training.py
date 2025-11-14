@@ -136,7 +136,7 @@ def train_and_save_model(data_path, max_depth=7):
         mlflow.log_metric("f1_score", f1)
         
         # 5. Save Artifacts (For API Deployment)
-        os.makedirs("models", exist_ok=True)
+        os.makedirs("models/", exist_ok=True)
         joblib.dump(model, "models/classifier.pkl")
         joblib.dump(vectorizer, "models/vectorizer.pkl")
         
