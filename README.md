@@ -1,7 +1,7 @@
 
 # Real-Time SMS Spam Classifier API
 
-![CI/CD Pipeline Status](https://github.com/YOUR_USERNAME/YOUR_REPOSITORY/actions/workflows/cicd.yml/badge.svg)
+[![CI/CD Pipeline for Spam Classifier](https://github.com/JUBRIL-ADEBOGUN/Spam-Classifier/actions/workflows/cicd.yml/badge.svg?branch=main)](https://github.com/JUBRIL-ADEBOGUN/Spam-Classifier/actions/workflows/cicd.yml)
 
 This project is an end-to-end demonstration of a production-ready Machine Learning system. It builds, tests, and deploys a real-time SMS Spam Classifier as a containerized microservice, following modern MLOps best practices.
 

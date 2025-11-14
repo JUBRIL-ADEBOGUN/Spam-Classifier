@@ -35,7 +35,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Spam Classifier API",
               version="1.0.0",
-              description="An API that classifies SMS messages as SPAM or HAM using a Logistic Regression model.",
+              description="An API that classifies SMS messages as SPAM or HAM.",
               lifespan=lifespan)
         # In a production environment, you might stop the application here (raise e)
 
@@ -59,7 +59,7 @@ def predict(request: PredictionRequest):
     return {
         "message_in": message_text[0],
         "prediction_label": "SPAM" if prediction == 1 else "HAM",
-        "confidence": str(float(probability.max()))
+        "confidence": probability.max()
     }
 
 # --- 4. Health Check (Crucial for Orchestration systems like Kubernetes) ---
