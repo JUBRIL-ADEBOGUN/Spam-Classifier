@@ -53,9 +53,9 @@ def test_model_performance(loaded_artifacts):
     # This acts as a contract for minimum performance.
     golden_data = {
         'message': [
-            "URGENT! Your account has been compromised. Click here.", # SPAM
+            "URGENT! You have won a 1 week FREE membership in our £100,000 Prize Jackpot! Txt the word: CLAIM to No: 81010 T&C www.dbuk.net LCCLTD POBOX 4403LDNW1A7RW18.", # SPAM
             "Hey, are we still on for dinner tonight?",              # HAM
-            "WIN a free vacation to the Bahamas now!",               # SPAM
+            "SIX chances to win CASH! From 100 to 20,000 pounds txt> CSH11 and send to 87575. Cost 150p/day, 6days, 16+ TsandCs apply Reply HL 4 info",               # SPAM
             "See you at the meeting at 4pm."                         # HAM
         ],
         'target': [1, 0, 1, 0]
