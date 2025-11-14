@@ -18,7 +18,7 @@ def generate_training_report(model, vectorizer, X_test_features, y_test, y_pred)
     print("INFO: Generating training report...")
     
     # Ensure the directory for saving reports exists
-    report_dir = "spam-classifier/src/report/"
+    report_dir = "src/report/"
     os.makedirs(report_dir, exist_ok=True)  # Create the directory if it does not exist
     
     # --- 2. Generate Confusion Matrix Plot ---
@@ -75,10 +75,10 @@ def generate_training_report(model, vectorizer, X_test_features, y_test, y_pred)
         f.write(class_report)
         f.write("\n```\n\n")
         f.write("## 2. Confusion Matrix\n\n")
-        f.write("![Confusion Matrix](spam-classifier/src/report/confusion_matrix.png)\n\n")
+        f.write("![Confusion Matrix](src/report/confusion_matrix.png)\n\n")
         f.write("## 3. Feature Importance\n\n")
         f.write("This plot shows the top words that push the prediction towards SPAM (red) or HAM (green).\n\n")
-        f.write("![Feature Importance](spam-classifier/src/report/feature_importance.png)\n")
+        f.write("![Feature Importance](src/report/feature_importance.png)\n")
     
     # write metrics (accuracy, precision recall, f1score) into a .txt file
     # metrics_path = os.path.join(report_dir, "metrics.txt")
@@ -137,17 +137,17 @@ def train_and_save_model(data_path, max_depth=7):
         
         # 5. Save Artifacts (For API Deployment)
         # os.makedirs("spam-classifier/models", exist_ok=True)
-        joblib.dump(model, "spam-classifier/models/classifier.pkl")
-        joblib.dump(vectorizer, "spam-classifier/models/vectorizer.pkl")
+        joblib.dump(model, "models/classifier.pkl")
+        joblib.dump(vectorizer, "models/vectorizer.pkl")
         
         # Log artifacts to MLflow as well
-        # mlflow.log_artifact("spam-classifier/models/classifier.pkl", "model_artifact")
-        # mlflow.log_artifact("spam-classifier/models/vectorizer.pkl", "model_artifact")
+        mlflow.log_artifact("models/classifier.pkl", "model_artifact")
+        mlflow.log_artifact("models/vectorizer.pkl", "model_artifact")
         
         # --- NEW: Call the report generation function ---
         generate_training_report(model, vectorizer, X_test_features, y_test, y_pred)
 
 if __name__ == "__main__":
     # Example execution with a parameter
-    DATA_FILE = "spam-classifier/data/raw/SMSSpamCollection" 
+    DATA_FILE = "data/raw/SMSSpamCollection" 
     train_and_save_model(DATA_FILE, max_depth=7)
