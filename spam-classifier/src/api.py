@@ -19,8 +19,8 @@ async def lifespan(app: FastAPI):
     global MODEL
 
     # Paths relative to the root of the project (or where Docker copies them)
-    vectorizer_path = os.path.join("spam-classifier/models", "vectorizer.pkl")
-    model_path = os.path.join("spam-classifier/models", "classifier.pkl")
+    vectorizer_path = os.path.join("models", "vectorizer.pkl")
+    model_path = os.path.join("models", "classifier.pkl")
     
     try:
         VECTORIZER = joblib.load(vectorizer_path)
